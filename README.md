@@ -170,6 +170,16 @@ git rm --cached <file>  # Unstage File
 - Branch pointer moves automatically after every new commit.
 - Change branch <b>git checkout &lt;branch&gt;</b>
 
+```sh
+git branch                    # List all local branches
+git branch <name>             # Create new branch
+git branch -d <name>          # Delete specific merged branch
+git branch -D <name>          # Delete specific non-merged branch
+git branch -m <old> <new>     # Rename specific branch
+git checkout <name>           # Checkout specific branch
+git checkout -b <branch name> # Creating a branch with checkout
+```
+
 &nbsp;
 
 ### HEAD
