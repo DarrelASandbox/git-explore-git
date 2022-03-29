@@ -132,3 +132,32 @@ git cat-file -p 0c04
 ```
 
 &nbsp;
+
+### Working directory, staging area (index) & Git repository
+
+- Commit (Root directory) -> Tree -> Blobs
+- Every file in Git may have one of four tracking statuses:
+  - Untracked
+  - Modified
+  - Staged
+  - Unmodified
+
+```sh
+git read-tree 0c04      # Git Repo
+git ls-files -s         # Staging Area
+git checkout-index -a   # Working Directory
+```
+
+- How many folders could be created for objects?
+  - Each folder name is 2 characters
+  - 1 character is 16 hex
+  - 16 \* 16 = 256 folders
+
+&nbsp;
+
+```sh
+git cat-file -t bd63    # Commit Object
+git rm --cached <file>  # Unstage File
+```
+
+&nbsp;
