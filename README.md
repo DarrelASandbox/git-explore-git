@@ -153,11 +153,37 @@ git checkout-index -a   # Working Directory
   - 1 character is 16 hex
   - 16 \* 16 = 256 folders
 
-&nbsp;
-
 ```sh
 git cat-file -t bd63    # Commit Object
 git rm --cached <file>  # Unstage File
 ```
+
+&nbsp;
+
+### Branch
+
+- Branch is just <u>text reference</u> to the commit.
+- Default branch is main.
+- Multiple branches can exist in the same repository.
+- Pointers for all branches are located in <b>.git/refs/heads folder</b>.
+- Current branch tracks new commits.
+- Branch pointer moves automatically after every new commit.
+- Change branch <b>git checkout &lt;branch&gt;</b>
+
+&nbsp;
+
+### HEAD
+
+- HEAD is <u>reference</u> to the currently checked-out branch or commit.
+- HEAD is locally significant.
+- Pointer is located in the <b>.git/HEAD</b> file.
+- Deafult pointer is <b>ref: refs/heads/main</b>.
+- Change reference to specific branch <b>git checkout &lt;branch&gt;</b>.
+- Change reference to specific commit <b>git checkout &lt;sha1&gt;</b>.
+- Ideally, HEAD is pointing at branch latest commit. (Refer to Detach HEAD state)
+
+&nbsp;
+
+- Git will not delete any of the previously createed files or folders in the Git repository immediately even after user has deleted files and make a commit. They are removed in some time by garbage collector.
 
 &nbsp;
