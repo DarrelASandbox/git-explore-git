@@ -197,3 +197,48 @@ git checkout -b <branch name> # Creating a branch with checkout
 - Git will not delete any of the previously createed files or folders in the Git repository immediately even after user has deleted files and make a commit. They are removed in some time by garbage collector.
 
 &nbsp;
+
+### Merging Branches
+
+- [merge-ort: a new merge strategy](https://github.blog/2021-08-16-highlights-from-git-2-33/)
+
+&nbsp;
+
+- Fast-forward merge
+  - Is possible when there are no further commits in the receiving branch after the commit where feature branch was created.
+  - e.g. main branch will point at feature branch in the diagram below.
+  - After merging: <code>git branch -d feature-branch</code>
+  - No merge conflict.
+
+![fast-forward-merge](fast-forward-merge.png)
+
+&nbsp;
+
+- Merging process
+  - Create new feature branch from the main branch.
+  - Make changes in the new branch and commit them.
+  - Checkout main branch (receiving branch).
+  - Merge feature branch to the current receiving branch.
+  - <code>git merge &lt;feature-branch&gt;</code>
+
+&nbsp;
+
+- 3-way merge
+  - Git will create a new commit to merge ancestor, receiving branch and feature branch.
+  - Merge commit will have 2 parents.
+  - When the feature branch is deleted, the chain of commits under it still remains as merge commit is still linked to it.
+  - Which means all history in both chain of branches are preserved.
+  - There may be merge conflict.
+
+![3-way-merge](images/3-way-merge.png)
+
+&nbsp;
+
+- Merging process
+  - Create new feature branch from the main branch.
+  - Make changes in the new branch and commit them.
+  - Switch back to main branch and commit there.
+  - Merge feature branch to the current receiving branch.
+  - <code>git merge &lt;feature-branch&gt;</code>
+
+&nbsp;
