@@ -19,7 +19,7 @@
   <li><a href="#git-mktree">git mktree</a></li>
   <li><a href="#working-directory-staging-area-index--git-repository">Working directory, staging area (index) & Git repository</a></li>
   <li><a href="#branch">Branch</a></li>
-  <li><a href="#head-detached-head">HEAD and Detached HEAD</a></li>
+  <li><a href="#head--detached-head">HEAD and Detached HEAD</a></li>
   <li><a href="#merging-branches">Merging Branches</a></li>
   <li><a href="#interaction-with-remote-git-repository">Interaction With Remote Git Repository</a></li>
   <li><a href="#commit-under-another-author">Commit Under Another Author</a></li>
@@ -27,6 +27,7 @@
   <li><a href="#forks-and-contribution-to-the-public-repositories">Forks and Contribution To The Public Repositories</a></li>
   <li><a href="#git-tags">Git Tags</a></li>
   <li><a href="#rebase">Rebase</a></li>
+  <li><a href="#advanced-git">Advanced Git</a></li>
   </ol>
 </details>
 
@@ -418,5 +419,63 @@ git log --graph
 > <b>Bogdan: </b> The best example of usage of rebasing is periodic rebasing of your feature branch you are currently working on on top of the main branch in order to stay up-to-date with all changes in the main branch and to avoid creation of the multiple merge commits. But it is assumed that nobody else works on dev of the same feature branch.
 
 > With rebasing timestamps of commits will be very shifted and older commits may appear in history as newer commits. That's why honestly in the large projects rebasing is not used so often because correct history is more important than linear history.
+
+&nbsp;
+
+### Advanced Git
+
+```sh
+git log --merges
+git log --no-merges
+
+git shortlog -n -s -e #Number of commits, summary & emails
+
+git log --author="DarrelA" --oneline
+git log --grep="find specific word"   # Case-sensitive
+
+git log --stat
+git log --graph
+git log --online
+git log -p
+
+git log --pretty=format:"%cn %H"
+```
+
+- [Git log format string cheatsheet](https://devhints.io/git-log-format)
+
+```sh
+# Discard commit & changes in staging area while keeping changes in working directory
+git reset <hash>
+
+# Discard commit, keep changes in staging area & changes in working directory
+git reset --soft <hash>
+
+# Discard commit, changes in staging area & changes in working directory
+git reset --hard <hash>
+```
+
+```sh
+git revert HEAD
+```
+
+|      reset      |    revert     |
+| :-------------: | :-----------: |
+|   destructive   |     safe      |
+| multiple commit | single commit |
+
+```sh
+git cherry-pick <hash>  # Safe operation
+git reflog
+git stash               # Keep uncommitted work
+git stash pop
+git stash list
+git gc                  # Garbage Collector
+```
+
+- [When to squash commits?](https://www.git-tower.com/learn/git/faq/git-squash)
+
+```sh
+git rebase -i <hash>
+```
 
 &nbsp;
