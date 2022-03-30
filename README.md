@@ -8,6 +8,29 @@
 
 &nbsp;
 
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+  <li><a href="#git-vs-github">Git vs GitHub</a></li>
+  <li><a href="#how-git-works-under-the-hood">How Git Works Under The Hood</a></li>
+  <li><a href="#git-hash-object">git hash-object</a></li>
+  <li><a href="#git-cat-file">git cat-file</a></li>
+  <li><a href="#git-object">Git Object</a></li>
+  <li><a href="#git-mktree">git mktree</a></li>
+  <li><a href="#working-directory-staging-area-index--git-repository">Working directory, staging area (index) & Git repository</a></li>
+  <li><a href="#branch">Branch</a></li>
+  <li><a href="#head">HEAD</a></li>
+  <li><a href="#merging-branches">Merging Branches</a></li>
+  <li><a href="#interaction-with-remote-git-repository">Interaction With Remote Git Repository</a></li>
+  <li><a href="#commit-under-another-author">Commit Under Another Author</a></li>
+  <li><a href="#create-remote-branch-base-on-local-branch">Create Remote Branch Base On Local Branch</a></li>
+  <li><a href="#forks-and-contribution-to-the-public-repositories">Forks and Contribution To The Public Repositories</a></li>
+  <li><a href="#git-tags">Git Tags</a></li>
+  </ol>
+</details>
+
+&nbsp;
+
 ## Notes
 
 ### Git vs GitHub
@@ -312,5 +335,9 @@ git show-ref            # Show both remote and local references
 > <b>Aayush:</b> So, before merging any feature branch to the master branch, the developer should pull and merge the master branch into the feature branch so that it is in sync with the master branch, and then push the feature branch to remote and create a pull request?
 
 > <b>Bogdan:</b> Exactly
+
+&nbsp;
+
+### Git Tags
 
 &nbsp;
