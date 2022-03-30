@@ -210,7 +210,7 @@ git checkout -b <branch name> # Creating a branch with checkout
   - After merging: <code>git branch -d feature-branch</code>
   - No merge conflict.
 
-![fast-forward-merge](fast-forward-merge.png)
+![fast-forward-merge](images/fast-forward-merge.png)
 
 &nbsp;
 
@@ -240,5 +240,56 @@ git checkout -b <branch name> # Creating a branch with checkout
   - Switch back to main branch and commit there.
   - Merge feature branch to the current receiving branch.
   - <code>git merge &lt;feature-branch&gt;</code>
+
+&nbsp;
+
+### Interaction With Remote Git Repository
+
+![interaction-with-remote-git-repository](images/interaction-with-remote-git-repository.png)
+
+- <b>Example of fetch: </b>Let's suppose that new branch was created in the Remote repository. After <code>git fetch</code>, same branch will be created in your local Git repository becaus branch is just text file in the .git/refs/heads.
+- <b>Example of pull: </b>
+  - Clone remote repository.
+  - Checkout <code>main</code> branch locally.
+  - Make changes and commit them in <code>main</code> branch of remote repository.
+  - After <code>git pull</code>, Git will fetch remote changes locally.
+  - After fetching, Git will merge remote <code>main</code> branch into local <code>main</code> branch.
+  - Staging area (index) and working directory will be automatically updated after merge.
+- <code>git pull</code> updates only single local present checked out branch.
+
+```sh
+git remote -v           # Shows URLs of remote repositories
+git branch -r           # Shows all branches on remote
+git branch -a           # Shows all branches both remote and local
+git branch -vv          # Shows tracking branch
+git remote show origin  # Show more info
+git remote prune origin # Git will prompts stale
+```
+
+- Git pull is a 2 step process: <code>git fetch</code> & <code>git merge FETCH_HEAD</code>
+- During <code>git pull</code>, Git will first execute <code>git fetch</code>. After fetching it will update .git/FETCH_HEAD list and first branch in this list will be currently checked out branch. Finally Git executes <code>git merge FETCH_HEAD</code> command that finds first branch in .git/FETCH_HEAD list without "not-for-merge" tag and merges it into local tracking currently checked out branch.
+
+&nbsp;
+
+### Commit under another author
+
+- Local settings will override global Git settings. Set user.name and user.email applies only locally for current repository.
+
+```sh
+git config user.name "<username>"
+git config user.email "<email>"
+```
+
+&nbsp;
+
+### Create remote branch base on local branch
+
+- [Why do I have to "git push --set-upstream origin <branch>"?](https://stackoverflow.com/questions/37770467/why-do-i-have-to-git-push-set-upstream-origin-branch)
+- [Why do I need to explicitly push a new branch?](https://stackoverflow.com/questions/17096311/why-do-i-need-to-explicitly-push-a-new-branch/17096880#17096880)
+
+```sh
+git push --set-upstream origin <new-branch> # OR
+git push -v -u orign feature-2              # flag v is verbose
+```
 
 &nbsp;
