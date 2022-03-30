@@ -28,6 +28,7 @@
   <li><a href="#git-tags">Git Tags</a></li>
   <li><a href="#rebase">Rebase</a></li>
   <li><a href="#advanced-git">Advanced Git</a></li>
+  <li><a href="#git-hooks">Git Hooks</a></li>
   </ol>
 </details>
 
@@ -479,3 +480,27 @@ git rebase -i <hash>
 ```
 
 &nbsp;
+
+### Git Hooks
+
+- How Git Hooks could be used
+  - Verify or edit commit message
+  - Run application tests before each commit or before pushing to remote
+  - Verify and potentially fix code syntax mistakes using linters like ESLint, Pylint
+  - Generate notifications after successful committing
+  - Deploy updated application to production on the server
+
+```sh
+chmod +x post-commit  # Set file to be executable
+```
+
+- Git Hooks are not pushed to the remote
+  - <b>Challenge: </b>Team members are not able to automatically synchronize Git Hooks from the <code>.git/hooks</code> folder between their computers.
+  - <b>Solution 1: </b>
+    - Create and commit hooks in the working directory.
+    - Create symbolic links in the <code>.git/hooks</code> folder pointing to the hooks in the working directory.
+    - But those symbolic links must be created manually on each computer.
+  - <b>Solution 2: </b>
+    - Use packages or applications that will control Git Hooks located in the <code>.git/hooks</code> folder.
+    - Configuration for those packages will be located in the working directory.
+- [npm i husky](https://www.npmjs.com/package/husky)
