@@ -19,13 +19,14 @@
   <li><a href="#git-mktree">git mktree</a></li>
   <li><a href="#working-directory-staging-area-index--git-repository">Working directory, staging area (index) & Git repository</a></li>
   <li><a href="#branch">Branch</a></li>
-  <li><a href="#head">HEAD</a></li>
+  <li><a href="#head-detached-head">HEAD and Detached HEAD</a></li>
   <li><a href="#merging-branches">Merging Branches</a></li>
   <li><a href="#interaction-with-remote-git-repository">Interaction With Remote Git Repository</a></li>
   <li><a href="#commit-under-another-author">Commit Under Another Author</a></li>
   <li><a href="#create-remote-branch-base-on-local-branch">Create Remote Branch Base On Local Branch</a></li>
   <li><a href="#forks-and-contribution-to-the-public-repositories">Forks and Contribution To The Public Repositories</a></li>
   <li><a href="#git-tags">Git Tags</a></li>
+  <li><a href="#rebase">Rebase</a></li>
   </ol>
 </details>
 
@@ -49,6 +50,10 @@
   - <b>Annotated Tag:
     - <b>A lightweight tag</b> is very much like a branch that doesn’t change — it’s just a pointer to a specific commit.
     - <b>Annotated tags</b>, however, are stored as full objects in the Git database.
+
+&nbsp;
+
+- Git will not delete any of the previously created files or folders in the Git repository immediately even after user has deleted files and make a commit. They are removed in some time by garbage collector.
 
 &nbsp;
 
@@ -206,7 +211,7 @@ git checkout -b <branch name> # Creating a branch with checkout
 
 &nbsp;
 
-### HEAD
+### HEAD & Detached HEAD
 
 - HEAD is <u>reference</u> to the currently checked-out branch or commit.
 - HEAD is locally significant.
@@ -216,9 +221,11 @@ git checkout -b <branch name> # Creating a branch with checkout
 - Change reference to specific commit <b>git checkout &lt;sha1&gt;</b>.
 - Ideally, HEAD is pointing at branch latest commit. (Refer to Detach HEAD state)
 
-&nbsp;
+---
 
-- Git will not delete any of the previously createed files or folders in the Git repository immediately even after user has deleted files and make a commit. They are removed in some time by garbage collector.
+- Commits made in <b>detached HEAD</b> state will be garbage collected.
+- Useful to explore and experiment with specific commit.
+- User can also create new branch and merge later.
 
 &nbsp;
 
@@ -339,5 +346,77 @@ git show-ref            # Show both remote and local references
 &nbsp;
 
 ### Git Tags
+
+- Useful for Git <code>release</code> versions.
+- Tag is a static text pointer to specific commit.
+
+![git-tags](images/git-tags.png)
+
+- <b>Continuous Integration (CI)/ Continuous Development (CD)</b>
+- <b>Staging (release)</b>
+  - primarily for testing
+  - usually for internal use
+  - merging is performed frequently
+  - different feature branches are merged into release branch
+  - multiple people may have merge rights
+- <b>Production (main)</b>
+  - for stable production service
+  - for customers
+  - merging happens each 2 weeks or 1 month
+  - usually only release branch is merged into main branch
+  - only few people have merge rights
+
+---
+
+- Semantic Versioning: Major.Minor.Patch (v5.2.4)
+  - [semver](https://semver.org/)
+- Lightweight: stored in the <code>.git/refs/tags</code>
+  - Cannot git push tag to remote
+  - [<code>git push origin <tag_name></code>](https://stackoverflow.com/questions/5195859/how-do-you-push-a-tag-to-a-remote-repository-using-git/5195913#5195913)
+- Annotated:
+  - stored in the <code>.git/refs/tags</code>
+  - is also stored in the <code>.git/objects</code>
+  - stores tag message
+  - stores tag author and data
+
+```sh
+git tag v1.0.0
+git show v1.0.0
+git tag -v v1.0.0 # For annotated tag to show details
+git tag -a v1.0.0 -m "Tag Message"
+
+# Setup for git lg
+git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+```
+
+- When you are pushing tags, commits are not pushed. You need to use "git push" to push commits to remote.
+
+&nbsp;
+
+### Rebase
+
+- Rebasing is a destructive operation
+- Rewrites history
+- History becomes linear
+- Doesn't keep entire history of all commits
+- Commit will only have single parent
+
+![rebasing-vs-merging](images/rebasing-vs-merging.png)
+
+- Merging of the feature branch into base branch using rebasing is two-step process.
+
+```sh
+git checkout <branch>
+git rebase main         # Rebase <branch> on top of the <base branch>
+git checkout main
+git merge <branch>      # Fast forward merge will be used
+git log --graph
+```
+
+> <b>Émerson: </b> What are the advantages of use git rebase?
+
+> <b>Bogdan: </b> The best example of usage of rebasing is periodic rebasing of your feature branch you are currently working on on top of the main branch in order to stay up-to-date with all changes in the main branch and to avoid creation of the multiple merge commits. But it is assumed that nobody else works on dev of the same feature branch.
+
+> With rebasing timestamps of commits will be very shifted and older commits may appear in history as newer commits. That's why honestly in the large projects rebasing is not used so often because correct history is more important than linear history.
 
 &nbsp;
