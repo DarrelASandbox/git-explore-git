@@ -136,6 +136,7 @@ git cat-file -p 0c04
 ### Working directory, staging area (index) & Git repository
 
 - Commit (Root directory) -> Tree -> Blobs
+- Often <code>main</code> branch is "production" version, and <code>release</code> is "staging" version of the project.
 - Every file in Git may have one of four tracking statuses:
   - Untracked
   - Modified
@@ -271,7 +272,7 @@ git remote prune origin # Git will prompts stale
 
 &nbsp;
 
-### Commit under another author
+### Commit Under Another Author
 
 - Local settings will override global Git settings. Set user.name and user.email applies only locally for current repository.
 
@@ -282,7 +283,7 @@ git config user.email "<email>"
 
 &nbsp;
 
-### Create remote branch base on local branch
+### Create Remote Branch Base On Local Branch
 
 - [Why do I have to "git push --set-upstream origin <branch>"?](https://stackoverflow.com/questions/37770467/why-do-i-have-to-git-push-set-upstream-origin-branch)
 - [Why do I need to explicitly push a new branch?](https://stackoverflow.com/questions/17096311/why-do-i-need-to-explicitly-push-a-new-branch/17096880#17096880)
@@ -290,6 +291,26 @@ git config user.email "<email>"
 ```sh
 git push --set-upstream origin <new-branch> # OR
 git push -v -u orign feature-2              # flag v is verbose
+git remote prune origin # Deletes stale references associated with <name>
+git show-ref            # Show both remote and local references
 ```
+
+&nbsp;
+
+### Forks and Contribution To The Public Repositories
+
+- [Definition of "downstream" and "upstream"](https://stackoverflow.com/questions/2739376/definition-of-downstream-and-upstream)
+- [What is a tracking branch?](https://stackoverflow.com/questions/4693588/what-is-a-tracking-branch)
+
+![forks-and-contribution](images/forks-and-contribution.png)
+![pull-request-from-the-forked-repo](images/pull-request-from-the-forked-repo.png)
+
+> <b>Aayush:</b> Who is responsible for solving merge conflicts? Who is responsible for solving merge conflicts? The manager who is reviewing the pull request, or the developer who has made the pull request? Also, is there a way that prevents/reduces the possibility of conflicts when a developer creates a pull request?
+
+> <b>Bogdan:</b> Developers are usually responsible for that. If you want to reduce possibilities of conflicts - don't work for a long time on specific feature. But if you work long, you could periodically apply changes from main branch (master or release) to you feature branch by making for example rebasing of your feature branch on top of main branch.
+
+> <b>Aayush:</b> So, before merging any feature branch to the master branch, the developer should pull and merge the master branch into the feature branch so that it is in sync with the master branch, and then push the feature branch to remote and create a pull request?
+
+> <b>Bogdan:</b> Exactly
 
 &nbsp;
